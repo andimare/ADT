@@ -5,23 +5,21 @@
 #include <vector>
 using namespace std;
 
-vector<int> coll;
-
 struct Frequency{
 	int mode;
 	int value;
 };
 
 //Set the frequency for the distinct numbers in the array
-void intializeStruct(int num, Frequency freq[], vector<int>& arr){
+void intializeStruct(Frequency freq[], vector<int>& arr, vector<int>& coll){
 	
 	cout<<"Frequency distibution within the elements"<<endl;
 	
-	for(int i = 0; i < num; i++){
+	for(int i = 0; i < coll.size(); i++){
 		freq[i].value = coll[i];
 		int count = 0;
 		
-		while(freq[i].value == arr[0]){
+		while(freq[i].value == arr[0] && !arr.empty() ){
 			count++;
 			arr.erase(arr.begin());
 		}
@@ -33,23 +31,21 @@ void intializeStruct(int num, Frequency freq[], vector<int>& arr){
 }
 
 //Get the number of distinct element function declaration
-int countDistinctValue(vector<int>& num){
-	int count = 1;
+void countDistinctValue(vector<int>& num){
 	
 	for(int i = 0;i < num.size(); i++){
 		int j = i + 1;
+		
 		while(j < num.size()){
-			if(num[i] == num[j]){
-				num.erase(num.begin() + j);
-			}else{
-				count++;
-				coll.push_back(num[i]);
+			if(num[i] != num[j]){
 				break;
+			}else{
+				num.erase(num.begin() + j);
 			}
 		}
+		
 	}
 	
-	return count - 1;
 }
 
 //Looking for the mode
@@ -78,15 +74,14 @@ void checkMode(Frequency freq[], int total){
 int main(){
 	
 	//You can change the contains in the culry braces to test the mode function
-	vector<int> blame = {34,6,4,23,5,8,3,6,4,4,2,3,6,28,23,23,6};
-	int total_elem = blame.size();
+	vector<int> blame = {34,6,4,23,5,8,3,6,4,4,2,34,6,28,23,23,6};
 	
 	//sorting the array first
 	//To easy our work
-	for(int i = 0; i < total_elem; ++i){
+	for(int i = 0; i < blame.size(); ++i){
 		int min = i,j = i + 1;
 		
-		while(j < total_elem){
+		while(j < blame.size()){
 			if(blame[min] > blame[j]) min = j;
 			j++;
 		}
@@ -102,7 +97,7 @@ int main(){
 	
 	cout<<"Original Array sorted : {";
 	
-	while(i < total_elem){
+	while(i < blame.size()){
 		if(i != 0) cout<<",";
 		cout<<blame[i];
 		i++;
@@ -114,29 +109,29 @@ int main(){
 	vector<int> blm = blame;
 	
 	//Getting the number of distincit element in the array
-	int dist = countDistinctValue(blame);
+	countDistinctValue(blame);
 	
 	
 	//Printing out the distinct values
 	cout<<"Distinct array elements : {";
 	
 	i = 0;
-	while(i < coll.size()){
+	while(i < blame.size()){
 		if(i != 0) cout<<",";
-		cout<<coll[i];
+		cout<<blame[i];
 		i++;
 	}
 	
 	cout<<"}"<<endl;
 	
 	//Declaration of the frequency struct
-	Frequency collection[dist];
+	Frequency collection[blame.size()];
 	
 	//Intializiting the struct
-	intializeStruct(dist, collection, blm);
+	intializeStruct(collection, blm, blame);
 	
 	//Now get the mode of the array
-	checkMode(collection, dist);
+	checkMode(collection, blame.size());
 	
 	return 0;
 }
