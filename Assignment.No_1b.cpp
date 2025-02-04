@@ -111,7 +111,6 @@ int main(){
 	//Getting the number of distincit element in the array
 	countDistinctValues(blame);
 	
-	
 	//Printing out the distinct values
 	cout<<"Distinct array elements : {";
 	
