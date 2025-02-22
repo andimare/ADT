@@ -95,7 +95,7 @@ int main(){
 	
 //	for(int j = 0;j < 10000;j++) {
 //		int val = subtract(9998);
-		
+//		
 //		if(val != 6174){
 //			outlayers.push_back(j);
 //		}

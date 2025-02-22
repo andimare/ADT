@@ -68,7 +68,6 @@ class Namba{
 		}
 		
 		int subtract(){
-			this->cycles++;
 			
 			int* num = extractDigits(difference);
 			
@@ -84,6 +83,7 @@ class Namba{
 					return difference;
 				}
 			}
+			this->cycles++;
 			
 			vals.push_back(difference);
 		
